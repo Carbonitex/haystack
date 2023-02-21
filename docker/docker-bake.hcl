@@ -7,7 +7,7 @@ variable "GITHUB_REF" {
 }
 
 variable "IMAGE_NAME" {
-  default = "deepset/haystack"
+  default = "carbonitex/haystack"
 }
 
 variable "IMAGE_TAG_SUFFIX" {
