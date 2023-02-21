@@ -33,7 +33,7 @@ def get_documents(filters: FilterRequest):
     To get all documents you should provide an empty dict, like:
     `'{"filters": {}}'`
     """
-    docs = document_store.get_all_documents(filters=filters.filters)
+    docs = document_store.get_all_documents(filters=filters.filters, index=filters.index)
     for doc in docs:
         doc.embedding = None
     return docs
@@ -52,5 +52,5 @@ def delete_documents(filters: FilterRequest):
     To get all documents you should provide an empty dict, like:
     `'{"filters": {}}'`
     """
-    document_store.delete_documents(filters=filters.filters)
+    document_store.delete_documents(filters=filters.filters, index=filters.index)
     return True

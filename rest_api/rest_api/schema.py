@@ -38,6 +38,7 @@ class QueryRequest(RequestBaseModel):
 
 
 class FilterRequest(RequestBaseModel):
+    index: str
     filters: Optional[Dict[str, Union[PrimitiveType, List[PrimitiveType], Dict[str, PrimitiveType]]]] = None
 
 
