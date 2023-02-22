@@ -1,8 +1,13 @@
+from functools import partial
+from typing import Any, Callable, Coroutine
+from authmiddle import auth_middleware
+
 from fastapi import FastAPI, HTTPException, APIRouter
 from fastapi.routing import APIRoute
 from fastapi.openapi.utils import get_openapi
 from starlette.middleware.cors import CORSMiddleware
 from haystack import __version__ as haystack_version
+from fastapi.security import OAuth2PasswordBearer
 
 from rest_api.pipeline import setup_pipelines
 from rest_api.controller.errors.http_error import http_error_handler
@@ -39,6 +44,13 @@ def get_app() -> FastAPI:
     app.add_middleware(
         CORSMiddleware, allow_origins=["*"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"]
     )
+    custom_auth_middleware: partial[Coroutine[Any, Any, Any]] = partial(auth_middleware, some_attribute="my-app")
+    app.add_middleware(
+        custom_auth_middleware
+    )
+
+    # app.middleware("http")(my_custom_middlware)
+    
     app.add_exception_handler(HTTPException, http_error_handler)
     app.include_router(router)
 
