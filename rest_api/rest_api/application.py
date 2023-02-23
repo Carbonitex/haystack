@@ -34,5 +34,7 @@ async def add_process_time_header(request: Request, call_next):
             response = await call_next(request)
             response.headers["heelllo"] = "asd"
             return response
+        else:
+            return PlainTextResponse("🏵️", status_code=420)
     except:
         return PlainTextResponse("🏵️", status_code=420)
