@@ -41,8 +41,9 @@ class Response(BaseModel):
     file_id: str
 
 
-@router.post("/file-upload")
+@router.post("/file-upload/{index}")
 def upload_file(
+    index,
     files: List[UploadFile] = File(...),
     # JSON serialized string
     meta: Optional[str] = Form("null"),  # type: ignore
@@ -79,7 +80,7 @@ def upload_file(
     converters = indexing_pipeline.get_nodes_by_class(BaseConverter)
     preprocessors = indexing_pipeline.get_nodes_by_class(PreProcessor)
 
-    params = {}
+    params = {"index": index}
     for converter in converters:
         params[converter.name] = fileconverter_params.dict()
     for preprocessor in preprocessors:
