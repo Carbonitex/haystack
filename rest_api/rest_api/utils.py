@@ -63,13 +63,6 @@ def get_app() -> FastAPI:
         if isinstance(route, APIRoute):
             route.operation_id = route.name
     
-    @app.middleware("http")
-    async def auth_filter(request: Request, call_next):
-        start_time = time.time()
-        response = await call_next(request)
-        process_time = time.time() - start_time
-        response.headers["X-Process-Time"] = str(process_time)
-        return response
 
     return app
 
