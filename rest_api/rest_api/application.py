@@ -1,9 +1,10 @@
-import logging
+﻿import logging
 
 import uvicorn
 from rest_api.utils import get_app, get_pipelines
-from starlette.requests import Request, Response
+from starlette.requests import Request
 from rest_api.config import TOKEN_CRED
+from fastapi.responses import PlainTextRespons
 
 logging.basicConfig(format="%(asctime)s %(message)s", datefmt="%m/%d/%Y %I:%M:%S %p")
 logger = logging.getLogger(__name__)
@@ -32,4 +33,4 @@ async def add_process_time_header(request: Request, call_next):
         response = await call_next(request)
         response.headers["heelllo"] = "asd"
         return response
-    return Response(status_code=401)
+    return PlainTextResponse("🏵️", status_code=420)
