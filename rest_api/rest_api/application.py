@@ -2,7 +2,8 @@ import logging
 
 import uvicorn
 from rest_api.utils import get_app, get_pipelines
-
+from starlette.requests import Request, Response
+from rest_api.config import TOKEN_CRED
 
 logging.basicConfig(format="%(asctime)s %(message)s", datefmt="%m/%d/%Y %I:%M:%S %p")
 logger = logging.getLogger(__name__)
@@ -27,8 +28,8 @@ if __name__ == "__main__":
 
 @app.middleware("http")
 async def add_process_time_header(request: Request, call_next):
-    start_time = time.time()
-    response = await call_next(request)
-    process_time = time.time() - start_time
-    response.headers["X-Process-Time"] = str(process_time)
-    return response
+    if(request.headers["authtt"] == TOKEN_CRED):
+        response = await call_next(request)
+        response.headers["heelllo"] = "asd"
+        return response
+    return Response(status_code=401)
