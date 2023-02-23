@@ -4,7 +4,7 @@ import uvicorn
 from rest_api.utils import get_app, get_pipelines
 from starlette.requests import Request
 from rest_api.config import TOKEN_CRED
-from fastapi.responses import PlainTextRespons
+from fastapi.responses import PlainTextResponse
 
 logging.basicConfig(format="%(asctime)s %(message)s", datefmt="%m/%d/%Y %I:%M:%S %p")
 logger = logging.getLogger(__name__)
